@@ -3,8 +3,8 @@ export const metadata = {
   description: "Kirim ucapan ulang tahun untuk Jasmine",
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
     ],
   },
 };
