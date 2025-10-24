@@ -124,7 +124,7 @@ export default function HomePage() {
         <div style={popupOverlayStyle}>
           <div style={popupBoxStyle}>
             <h3 style={{ marginBottom: '0.5rem' }}>Terima kasih!</h3>
-            <p>Atas wish dan doa terbaiknya <strong>{popupName}</strong> ✨</p>
+            <p>Atas wish dan doa terbaiknya, <strong>{popupName}</strong> ✨</p>
           </div>
         </div>
       )}
