@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Ucapan Ultah Jasmine 🎂",
+  title: "Cie yang ultah",
   description: "Kirim ucapan ulang tahun untuk Jasmine",
   icons: {
     icon: [
