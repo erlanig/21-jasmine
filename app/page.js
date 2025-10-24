@@ -175,7 +175,7 @@ export default function HomePage() {
       </main>
 
       <footer style={footerStyle}>
-        <p>© 2025 Pacar-nya. All rights reserved 💞</p>
+        <p>© 2025 Pacar-nya. All rights reserved.</p>
       </footer>
     </>
   );
@@ -318,8 +318,6 @@ const popupBoxStyle = {
 
 const footerStyle = {
   textAlign: 'center',
-  padding: '1rem 0',
-  background: '#fff',
   color: '#d63384',
   fontWeight: '500',
   fontSize: '0.95rem',
