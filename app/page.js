@@ -21,8 +21,8 @@ export default function HomePage() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // popup
-  const [popupName, setPopupName] = useState(''); // simpan nama buat popup
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupName, setPopupName] = useState('');
 
   const fetchMessages = async () => {
     const q = query(collection(db, 'ucapan'), orderBy('timestamp', 'desc'));
@@ -55,7 +55,6 @@ export default function HomePage() {
       setMessage('');
       await fetchMessages();
 
-      // tampilkan popup
       setShowPopup(true);
       setTimeout(() => setShowPopup(false), 3000);
     } catch (error) {
@@ -70,12 +69,46 @@ export default function HomePage() {
     <>
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
         body {
           margin: 0;
           font-family: 'Poppins', sans-serif;
           background: #fff0f5;
           overflow-x: hidden;
         }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+          h1 {
+            font-size: 1.8rem !important;
+          }
+          p {
+            font-size: 0.95rem !important;
+          }
+          form {
+            padding: 1.5rem !important;
+          }
+          input, textarea, button {
+            font-size: 0.95rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          main {
+            padding: 1.5rem 0.8rem !important;
+          }
+          form {
+            padding: 1rem !important;
+            border-radius: 0.8rem !important;
+          }
+          button {
+            padding: 0.8rem !important;
+          }
+          footer {
+            font-size: 0.8rem !important;
+          }
+        }
+
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -86,18 +119,18 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* Popup terima kasih */}
+      {/* Popup */}
       {showPopup && (
         <div style={popupOverlayStyle}>
           <div style={popupBoxStyle}>
-            <h3 style={{ marginBottom: '0.5rem' }}>💖 Terima kasih!</h3>
+            <h3 style={{ marginBottom: '0.5rem' }}>Terima kasih!</h3>
             <p>Atas wish dan doa terbaiknya <strong>{popupName}</strong> ✨</p>
           </div>
         </div>
       )}
 
       <main style={mainStyle}>
-        <h1 style={titleStyle}>Ciee.. Happy Birthday Jasmine!</h1>
+        <h1 style={titleStyle}>Ciee... Happy Birthday Jasmine!</h1>
         <p style={subtitleStyle}>Tulis wish dan doa terbaikmu untuk Jasmine di sini yaa</p>
 
         <form onSubmit={handleSubmit} style={formStyle}>
@@ -125,7 +158,7 @@ export default function HomePage() {
 
           {messages.length === 0 && !loading && (
             <p style={{ textAlign: 'center', color: '#777' }}>
-              Belum ada ucapan ih😢 Mau jadi yang pertama gak?
+              Belum ada ucapan ih 😢 Mau jadi yang pertama gak?
             </p>
           )}
 
@@ -141,15 +174,14 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer style={footerStyle}>
-        <p>© 2025. Pacar-nya. All rights reserved</p>
+        <p>© 2025 Pacar-nya. All rights reserved 💞</p>
       </footer>
     </>
   );
 }
 
-/* --- Style --- */
+/* --- Styles --- */
 
 const mainStyle = {
   display: 'flex',
@@ -286,6 +318,8 @@ const popupBoxStyle = {
 
 const footerStyle = {
   textAlign: 'center',
+  padding: '1rem 0',
+  background: '#fff',
   color: '#d63384',
   fontWeight: '500',
   fontSize: '0.95rem',
