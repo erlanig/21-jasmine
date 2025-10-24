@@ -163,14 +163,90 @@ export default function HomePage() {
           )}
 
           <ul style={messageGridStyle}>
-            {messages.map((msg) => (
-              <li key={msg.id} style={cardStyle}>
-                <strong style={nameStyle}>💗 {msg.name}</strong>
-                <p style={messageStyle}>{msg.message}</p>
-                <small style={timestampStyle}>{formatDate(msg.timestamp)}</small>
-              </li>
-            ))}
-          </ul>
+  {messages.map((msg, index) => {
+    const isRight = index % 2 === 0; // chat bergantian kanan-kiri
+
+    // wrapper utama
+    const wrapperStyle = {
+      display: 'flex',
+      justifyContent: isRight ? 'flex-end' : 'flex-start',
+      width: '100%',
+      maxWidth: '700px',
+    };
+
+    // posisi avatar + bubble
+    const chatRowStyle = {
+      display: 'flex',
+      flexDirection: isRight ? 'row-reverse' : 'row',
+      alignItems: 'flex-start',
+      gap: '0.6rem',
+      width: '85%',
+    };
+
+    // bubble pesan
+    const bubbleStyle = {
+      ...cardStyle,
+      backgroundColor: '#fff',
+      borderRadius: isRight
+        ? '16px 2px 16px 16px'
+        : '2px 16px 16px 16px',
+      flex: 1,
+      minWidth: '120px',
+      maxWidth: '100%',
+      position: 'relative',
+    };
+
+    // ekor bubble di atas (posisi kanan/kiri)
+    const tailStyle = {
+      position: 'absolute',
+      top: '-6px', // keluar sedikit di atas bubble
+      [isRight ? 'right' : 'left']: '16px', // sesuaikan posisi horizontal
+      width: 0,
+      height: 0,
+      borderLeft: '6px solid transparent',
+      borderRight: '6px solid transparent',
+      ...(isRight
+        ? { borderTop: '6px solid #fff' } // segitiga mengarah ke atas (kanan)
+        : { borderTop: '6px solid #fff' }), // segitiga mengarah ke atas (kiri)
+    };
+
+
+    // avatar di samping bubble
+    const profileStyle = {
+      width: '38px',
+      height: '38px',
+      borderRadius: '50%',
+      backgroundColor: isRight ? '#b0d4ff' : '#f8c4dc',
+      color: '#fff',
+      fontWeight: '600',
+      fontSize: '1rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      marginTop: '2px',
+    };
+
+    return (
+      <li key={msg.id} style={wrapperStyle}>
+        <div style={chatRowStyle}>
+          {/* Avatar */}
+          <div style={profileStyle}>{msg.name?.charAt(0).toUpperCase()}</div>
+
+          {/* Bubble */}
+          <div style={bubbleStyle}>
+            <div style={tailStyle}></div>
+            <strong style={nameStyle}>
+              {isRight ? '💙' : '💗'} {msg.name}
+            </strong>
+            <p style={messageStyle}>{msg.message}</p>
+            <small style={timestampStyle}>{formatDate(msg.timestamp)}</small>
+          </div>
+        </div>
+      </li>
+    );
+  })}
+</ul>
         </div>
       </main>
 
@@ -254,41 +330,51 @@ const sectionTitleStyle = {
 const messageGridStyle = {
   listStyle: 'none',
   padding: 0,
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-  gap: '1rem'
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.2rem',
+  width: '100%',
+  alignItems: 'center',
 };
 
 const cardStyle = {
-  background: '#fff',
-  padding: '1.5rem',
-  borderRadius: '1rem',
-  boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between'
+  justifyContent: 'flex-start',
+  backgroundColor: '#fff',
+  borderRadius: '16px',
+  padding: '12px 16px',
+  boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+  position: 'relative',
+  wordBreak: 'break-word',
+  boxSizing: 'border-box',
 };
 
 const nameStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
   color: '#d63384',
-  fontSize: '1.1rem',
-  marginBottom: '0.5rem'
+  fontWeight: 600,
+  fontSize: '0.95rem',
+  marginBottom: '0.4rem',
 };
 
 const messageStyle = {
   color: '#333',
-  lineHeight: '1.5',
-  whiteSpace: 'pre-wrap'
+  whiteSpace: 'pre-wrap',
+  textAlign: 'justify',
+  textJustify: 'inter-word',
+  lineHeight: '1.6',
+  width: '100%',
+  boxSizing: 'border-box',
+  paddingRight: '0.5rem',
+  marginBottom: '1.5rem',
 };
 
 const timestampStyle = {
-  display: 'block',
-  marginTop: '1rem',
-  textAlign: 'right',
-  color: '#999'
+  position: 'absolute',
+  bottom: '6px',
+  right: '12px',
+  color: '#999',
+  fontSize: '0.75rem',
 };
 
 const popupOverlayStyle = {
@@ -323,3 +409,4 @@ const footerStyle = {
   fontSize: '0.95rem',
   borderTop: '1px solid #f3d6e0'
 };
+
