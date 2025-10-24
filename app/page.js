@@ -97,7 +97,7 @@ export default function HomePage() {
       )}
 
       <main style={mainStyle}>
-        <h1 style={titleStyle}>🎂 Happy Birthday, Jasmine! 🎉</h1>
+        <h1 style={titleStyle}>Ciee.. Happy Birthday Jasmine!</h1>
         <p style={subtitleStyle}>Tulis wish dan doa terbaikmu untuk Jasmine di sini yaa</p>
 
         <form onSubmit={handleSubmit} style={formStyle}>
@@ -143,7 +143,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer style={footerStyle}>
-        <p>© 2025. Pacar Jasmine. All rights reserved</p>
+        <p>© 2025. Pacar-nya. All rights reserved</p>
       </footer>
     </>
   );
