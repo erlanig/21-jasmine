@@ -21,11 +21,10 @@ export default function HomePage() {
   const [messages, setMessages] = useState([]);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false); // State untuk loading
+  const [loading, setLoading] = useState(false);
 
   // Fungsi untuk mengambil data
   const fetchMessages = async () => {
-    // Mengurutkan berdasarkan timestamp, yang terbaru di atas
     const q = query(collection(db, 'ucapan'), orderBy('timestamp', 'desc'));
     const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map(doc => ({
@@ -35,7 +34,6 @@ export default function HomePage() {
     setMessages(data);
   };
 
-  // Ambil data dari Firestore saat komponen dimuat
   useEffect(() => {
     fetchMessages();
   }, []);
@@ -45,7 +43,7 @@ export default function HomePage() {
     e.preventDefault();
     if (!name.trim() || !message.trim()) return alert("Nama dan ucapan harus diisi!");
 
-    setLoading(true); // Mulai loading
+    setLoading(true);
     try {
       await addDoc(collection(db, 'ucapan'), {
         name,
@@ -55,23 +53,25 @@ export default function HomePage() {
 
       setName('');
       setMessage('');
-      await fetchMessages(); // Ambil ulang data untuk refresh
+      await fetchMessages(); 
     } catch (error) {
       console.error("Error adding document: ", error);
       alert("Gagal mengirim ucapan!");
     } finally {
-      setLoading(false); // Selesai loading
+      setLoading(false);
     }
   };
 
   return (
     <>
-      {/* Ini adalah style global untuk background dan font */}
+      {/* Mengganti font menjadi Poppins */}
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        
         body {
           margin: 0;
-          font-family: 'Lato', sans-serif;
-          background: linear-gradient(135deg, #fff0f5 0%, #ffe6e9 100%);
+          font-family: 'Poppins', sans-serif;
+          background: #fff0f5; /* Warna pink yang sangat muda */
         }
       `}</style>
 
@@ -86,31 +86,35 @@ export default function HomePage() {
       }}>
         
         <h1 style={{
-          fontFamily: "'Great Vibes', cursive",
-          fontSize: 'clamp(2.5rem, 10vw, 4rem)', // Font responsif
-          marginBottom: '1rem',
-          color: '#c2185b', // Pink yang lebih dalam
-          textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
+          fontFamily: "'Poppins', sans-serif", // Font diubah ke Poppins
+          fontSize: 'clamp(2rem, 8vw, 3rem)',
+          marginBottom: '0.5rem',
+          color: '#d63384', // Warna pink utama
+          fontWeight: '700',
           textAlign: 'center'
         }}>
           🎂 Happy Birthday, Jasmine! 🎉
         </h1>
-        <p style={{marginTop: 0, fontSize: '1.1rem', color: '#555', textAlign: 'center'}}>
+        <p style={{
+          marginTop: 0,
+          fontSize: '1.1rem',
+          color: '#555',
+          textAlign: 'center'
+        }}>
           Tinggalkan ucapan manismu di sini~
         </p>
 
+        {/* Form dibuat lebih simpel */}
         <form onSubmit={handleSubmit} style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
           width: '100%',
           maxWidth: '500px',
-          background: 'rgba(255, 255, 255, 0.9)', // Efek kaca
-          backdropFilter: 'blur(10px)',
+          background: '#ffffff', // Latar belakang putih solid
           padding: '2rem',
-          borderRadius: '1.5rem',
-          boxShadow: '0 8px 32px 0 rgba(194, 24, 91, 0.15)',
-          border: '1px solid rgba(255, 255, 255, 0.18)',
+          borderRadius: '1rem', // Border radius lebih simpel
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)', // Bayangan lebih lembut
           margin: '1rem auto 2rem auto'
         }}>
           <input
@@ -131,9 +135,6 @@ export default function HomePage() {
             type="submit"
             disabled={loading}
             style={buttonStyle}
-            // Tambahkan efek hover langsung di sini untuk kemudahan
-            onMouseOver={(e) => e.currentTarget.style.background = '#ad1457'}
-            onMouseOut={(e) => e.currentTarget.style.background = '#d63384'}
           >
             {loading ? 'Mengirim...' : 'Kirim Ucapan 💌'}
           </button>
@@ -144,9 +145,10 @@ export default function HomePage() {
           maxWidth: '1200px'
         }}>
           <h2 style={{
-            color: '#c2185b',
-            borderBottom: '2px solid #fce4ec',
-            paddingBottom: '0.5rem'
+            color: '#d63384',
+            textAlign: 'center',
+            fontWeight: '600',
+            marginBottom: '1.5rem'
           }}>
             Ucapan dari Teman-Teman ✨
           </h2>
@@ -163,19 +165,16 @@ export default function HomePage() {
             gap: '1.5rem'
           }}>
             {messages.map((msg) => (
-              <li key={msg.id} style={cardStyle}
-                  onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                  onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
+              <li key={msg.id} style={cardStyle}>
                 <strong style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  color: '#c2185b',
+                  color: '#d63384',
                   fontSize: '1.1rem',
-                  borderBottom: '1px dashed #eee',
                   paddingBottom: '0.5rem',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
+                  fontWeight: '600'
                 }}>
                   💖 {msg.name}
                 </strong>
@@ -183,7 +182,7 @@ export default function HomePage() {
                   margin: '0.5rem 0',
                   color: '#333',
                   lineHeight: '1.6',
-                  whiteSpace: 'pre-wrap' // Menghargai baris baru dari textarea
+                  whiteSpace: 'pre-wrap'
                 }}>
                   {msg.message}
                 </p>
@@ -205,16 +204,14 @@ export default function HomePage() {
   );
 }
 
-// Definisikan style di luar return agar lebih bersih
+// Definisikan style di luar return
 const inputStyle = {
   padding: '1rem',
   borderRadius: '12px',
-  border: '1px solid #eee',
-  background: '#fcfcfc',
+  border: '1px solid #ddd', // Border lebih simpel
+  background: '#fafafa',
   fontSize: '1rem',
-  fontFamily: "'Lato', sans-serif",
-  transition: 'all 0.3s ease'
-  // Anda bisa menambahkan :focus state menggunakan CSS biasa
+  fontFamily: "'Poppins', sans-serif", // Font Poppins
 };
 
 const buttonStyle = {
@@ -225,20 +222,19 @@ const buttonStyle = {
   borderRadius: '12px',
   cursor: 'pointer',
   fontSize: '1.1rem',
-  fontWeight: 'bold',
+  fontWeight: '600', // Poppins terlihat bagus dengan 600
   transition: 'all 0.3s ease',
-  boxShadow: '0 4px 12px rgba(214, 51, 132, 0.3)'
+  boxShadow: '0 4px 12px rgba(214, 51, 132, 0.2)' // Bayangan lebih lembut
 };
 
 const cardStyle = {
   background: '#ffffff',
   padding: '1.5rem',
   borderRadius: '1rem',
-  boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.05)', // Bayangan simpel
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  height: '100%', // Membuat kartu sama tinggi di dalam grid
-  boxSizing: 'border-box' // Penting untuk padding
+  height: '100%', 
+  boxSizing: 'border-box'
 };
