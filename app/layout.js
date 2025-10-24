@@ -1,7 +1,14 @@
 export const metadata = {
   title: "Ucapan Ultah Jasmine 🎂",
-  description: "Kirim ucapan ulang tahun untuk Jasmine 💌",
+  description: "Kirim ucapan ulang tahun untuk Jasmine",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+  },
 };
+
 
 export default function RootLayout({ children }) {
   return (
@@ -12,3 +19,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
