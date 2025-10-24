@@ -188,8 +188,8 @@ export default function HomePage() {
       ...cardStyle,
       backgroundColor: '#fff',
       borderRadius: isRight
-        ? '16px 2px 16px 16px'
-        : '2px 16px 16px 16px',
+        ? '16px 0px 16px 16px'
+        : '0px 16px 16px 16px',
       flex: 1,
       minWidth: '120px',
       maxWidth: '100%',
@@ -198,16 +198,7 @@ export default function HomePage() {
 
     // ekor bubble di atas (posisi kanan/kiri)
     const tailStyle = {
-      position: 'absolute',
-      top: '-6px', // keluar sedikit di atas bubble
-      [isRight ? 'right' : 'left']: '16px', // sesuaikan posisi horizontal
-      width: 0,
-      height: 0,
-      borderLeft: '6px solid transparent',
-      borderRight: '6px solid transparent',
-      ...(isRight
-        ? { borderTop: '6px solid #fff' } // segitiga mengarah ke atas (kanan)
-        : { borderTop: '6px solid #fff' }), // segitiga mengarah ke atas (kiri)
+
     };
 
 
