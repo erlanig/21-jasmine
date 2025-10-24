@@ -155,7 +155,6 @@ export default function HomePage() {
 
         <div style={{ width: '100%', maxWidth: '1000px' }}>
           <h2 style={sectionTitleStyle}>Ucapan dari semua yang sayang Jasmine ❤️</h2>
-
           {messages.length === 0 && !loading && (
             <p style={{ textAlign: 'center', color: '#777' }}>
               Belum ada ucapan ih 😢 Mau jadi yang pertama gak?
@@ -163,81 +162,81 @@ export default function HomePage() {
           )}
 
           <ul style={messageGridStyle}>
-  {messages.map((msg, index) => {
-    const isRight = index % 2 === 0; // chat bergantian kanan-kiri
+            {messages.map((msg, index) => {
+              const isRight = index % 2 === 0; // chat bergantian kanan-kiri
 
-    // wrapper utama
-    const wrapperStyle = {
-      display: 'flex',
-      justifyContent: isRight ? 'flex-end' : 'flex-start',
-      width: '100%',
-      maxWidth: '700px',
-    };
+              // wrapper utama
+              const wrapperStyle = {
+                display: 'flex',
+                justifyContent: isRight ? 'flex-end' : 'flex-start',
+                width: '100%',
+                maxWidth: '700px',
+              };
 
-    // posisi avatar + bubble
-    const chatRowStyle = {
-      display: 'flex',
-      flexDirection: isRight ? 'row-reverse' : 'row',
-      alignItems: 'flex-start',
-      gap: '0.6rem',
-      width: '85%',
-    };
+              // posisi avatar + bubble
+              const chatRowStyle = {
+                display: 'flex',
+                flexDirection: isRight ? 'row-reverse' : 'row',
+                alignItems: 'flex-start',
+                gap: '0.6rem',
+                width: '95%',
+              };
 
-    // bubble pesan
-    const bubbleStyle = {
-      ...cardStyle,
-      backgroundColor: '#fff',
-      borderRadius: isRight
-        ? '16px 0px 16px 16px'
-        : '0px 16px 16px 16px',
-      flex: 1,
-      minWidth: '120px',
-      maxWidth: '100%',
-      position: 'relative',
-    };
+              // bubble pesan
+              const bubbleStyle = {
+                ...cardStyle,
+                backgroundColor: '#fff',
+                borderRadius: isRight
+                  ? '16px 0px 16px 16px'
+                  : '0px 16px 16px 16px',
+                flex: 1,
+                minWidth: '120px',
+                maxWidth: '100%',
+                position: 'relative',
+              };
 
-    // ekor bubble di atas (posisi kanan/kiri)
-    const tailStyle = {
+              // ekor bubble di atas (posisi kanan/kiri)
+              const tailStyle = {
 
-    };
+              };
 
 
-    // avatar di samping bubble
-    const profileStyle = {
-      width: '38px',
-      height: '38px',
-      borderRadius: '50%',
-      backgroundColor: isRight ? '#b0d4ff' : '#f8c4dc',
-      color: '#fff',
-      fontWeight: '600',
-      fontSize: '1rem',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      marginTop: '2px',
-    };
+              // avatar di samping bubble
+              const profileStyle = {
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                backgroundColor: isRight ? '#b0d4ff' : '#f8c4dc',
+                color: '#fff',
+                fontWeight: '600',
+                fontSize: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                marginTop: '2px',
+              };
 
-    return (
-      <li key={msg.id} style={wrapperStyle}>
-        <div style={chatRowStyle}>
-          {/* Avatar */}
-          <div style={profileStyle}>{msg.name?.charAt(0).toUpperCase()}</div>
+              return (
+                <li key={msg.id} style={wrapperStyle}>
+                  <div style={chatRowStyle}>
+                    {/* Avatar */}
+                    <div style={profileStyle}>{msg.name?.charAt(0).toUpperCase()}</div>
 
-          {/* Bubble */}
-          <div style={bubbleStyle}>
-            <div style={tailStyle}></div>
-            <strong style={nameStyle}>
-              {isRight ? '💙' : '💗'} {msg.name}
-            </strong>
-            <p style={messageStyle}>{msg.message}</p>
-            <small style={timestampStyle}>{formatDate(msg.timestamp)}</small>
-          </div>
-        </div>
-      </li>
-    );
-  })}
-</ul>
+                    {/* Bubble */}
+                    <div style={bubbleStyle}>
+                      <div style={tailStyle}></div>
+                      <strong style={nameStyle}>
+                        {isRight ? '💙' : '💗'} {msg.name}
+                      </strong>
+                      <p style={messageStyle}>{msg.message}</p>
+                      <small style={timestampStyle}>{formatDate(msg.timestamp)}</small>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </main>
 
@@ -399,5 +398,22 @@ const footerStyle = {
   fontWeight: '500',
   fontSize: '0.95rem',
   borderTop: '1px solid #f3d6e0'
+};
+
+const dayLabelWrapper = {
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  margin: '1rem 0',
+};
+
+const dayLabel = {
+  backgroundColor: '#d63384',
+  color: '#fff',
+  fontSize: '0.85rem',
+  padding: '6px 14px',
+  borderRadius: '20px',
+  fontWeight: 500,
+  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
 };
 
