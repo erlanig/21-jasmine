@@ -121,7 +121,7 @@ export default function HomePage() {
         </form>
 
         <div style={{ width: '100%', maxWidth: '1000px' }}>
-          <h2 style={sectionTitleStyle}>Ucapan dari semua yang sayang kamu ❤️</h2>
+          <h2 style={sectionTitleStyle}>Ucapan dari semua yang sayang Jasmine ❤️</h2>
 
           {messages.length === 0 && !loading && (
             <p style={{ textAlign: 'center', color: '#777' }}>
