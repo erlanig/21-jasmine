@@ -27,7 +27,7 @@ export default function HomePage() {
   const [countdown, setCountdown] = useState('');
 
   useEffect(() => {
-    const targetDate = new Date('2025-10-26T00:00:00+07:00');
+    const targetDate = new Date('2025-10-26T09:00:00+07:00');
 
     const updateCountdown = () => {
       const now = new Date();
@@ -217,7 +217,7 @@ export default function HomePage() {
             <div style={countdownContainerStyle}>
               <div style={countdownBoxStyle}>
                 Sabar yaa... ucapan-ucapannya baru bisa dibaca kalo udah<br />
-                <strong>26 Oktober 2025 jam 00:00 WIB</strong>
+                <strong>26 Oktober 2025 jam 09:00 WIB</strong>
                 <br /><br />
                 <div style={countdownTimerStyle}>
                   ⏳ {countdown}
