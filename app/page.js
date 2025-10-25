@@ -23,6 +23,36 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupName, setPopupName] = useState('');
+  const [isBeforeDate, setIsBeforeDate] = useState(true);
+  const [countdown, setCountdown] = useState('');
+
+  useEffect(() => {
+    const targetDate = new Date('2025-10-26T00:00:01+07:00');
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        setIsBeforeDate(false);
+        setCountdown('');
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const formatTime = (num) => String(num).padStart(2, '0');
+      setCountdown(`${days}h ${formatTime(hours)}j ${formatTime(minutes)}m ${formatTime(seconds)}d`);
+      setIsBeforeDate(true);
+    };
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const fetchMessages = async () => {
     const q = query(collection(db, 'ucapan'), orderBy('timestamp', 'desc'));
@@ -160,6 +190,24 @@ export default function HomePage() {
               Belum ada ucapan ih 😢 Mau jadi yang pertama gak?
             </p>
           )}
+          {messages.length > 0 && !loading && (
+            <div style={dayLabelWrapper}>
+              <span style={dayLabel}>Today and everyday</span>
+            </div>
+            
+          )}
+          {isBeforeDate && (
+            <div style={countdownContainerStyle}>
+              <div style={countdownBoxStyle}>
+                🎁 Tunggu yaa... ucapan-ucapan spesial baru bisa dibaca setelah<br />
+                <strong>26 Oktober 2025 jam 00:00 WIB 💖</strong>
+                <br /><br />
+                <div style={countdownTimerStyle}>
+                  ⏳ {countdown}
+                </div>
+              </div>
+            </div>
+          )}
 
           <ul style={messageGridStyle}>
             {messages.map((msg, index) => {
@@ -193,6 +241,9 @@ export default function HomePage() {
                 minWidth: '120px',
                 maxWidth: '100%',
                 position: 'relative',
+                filter: isBeforeDate ? 'blur(8px)' : 'none',
+                pointerEvents: isBeforeDate ? 'none' : 'auto',
+                transition: 'filter 0.6s ease',
               };
 
               // ekor bubble di atas (posisi kanan/kiri)
@@ -417,3 +468,40 @@ const dayLabel = {
   boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
 };
 
+const countdownContainerStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  textAlign: 'center',
+  margin: '1rem 0',
+  padding: '0 1rem',
+  boxSizing: 'border-box',
+};
+
+const countdownBoxStyle = {
+  background: '#ffe4ec',
+  color: '#d63384',
+  fontWeight: '600',
+  borderRadius: '16px',
+  padding: '1rem 1.2rem',
+  maxWidth: '90%',
+  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
+  boxShadow: '0 3px 6px rgba(0,0,0,0.05)',
+  animation: 'fadeIn 1s ease',
+  lineHeight: 1.6,
+};
+
+const countdownTimerStyle = {
+  fontSize: 'clamp(1.1rem, 3.5vw, 1.4rem)',
+  letterSpacing: '1px',
+  background: '#fff',
+  color: '#d63384',
+  padding: '8px 14px',
+  borderRadius: '10px',
+  display: 'inline-block',
+  marginTop: '0.4rem',
+  fontWeight: '700',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+  transition: 'all 0.3s ease',
+};
