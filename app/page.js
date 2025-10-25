@@ -65,6 +65,12 @@ export default function HomePage() {
   };
 
   useEffect(() => {
+    const disableRightClick = (e) => e.preventDefault();
+    document.addEventListener('contextmenu', disableRightClick);
+    return () => document.removeEventListener('contextmenu', disableRightClick);
+  }, []);
+
+  useEffect(() => {
     fetchMessages();
   }, []);
 
@@ -146,6 +152,17 @@ export default function HomePage() {
         @keyframes scaleIn {
           from { transform: scale(0.9); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
+        }
+        * {
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -moz-user-select: none !important;
+          -ms-user-select: none !important;
+          pointer-events: auto;
+        }
+
+        img, svg, canvas {
+          pointer-events: none;
         }
       `}</style>
 
@@ -242,7 +259,7 @@ export default function HomePage() {
                 maxWidth: '100%',
                 position: 'relative',
                 filter: isBeforeDate ? 'blur(8px)' : 'none',
-                pointerEvents: isBeforeDate ? 'none' : 'auto',
+                pointerEvents: isBeforeDate ? 'none' : 'none', // tetap nonaktif
                 transition: 'filter 0.6s ease',
               };
 
@@ -250,7 +267,6 @@ export default function HomePage() {
               const tailStyle = {
 
               };
-
 
               // avatar di samping bubble
               const profileStyle = {
