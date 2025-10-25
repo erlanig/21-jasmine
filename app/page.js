@@ -27,7 +27,7 @@ export default function HomePage() {
   const [countdown, setCountdown] = useState('');
 
   useEffect(() => {
-    const targetDate = new Date('2025-10-26T00:00:01+07:00');
+    const targetDate = new Date('2025-10-26T00:00:00+07:00');
 
     const updateCountdown = () => {
       const now = new Date();
