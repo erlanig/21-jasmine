@@ -199,8 +199,8 @@ export default function HomePage() {
           {isBeforeDate && (
             <div style={countdownContainerStyle}>
               <div style={countdownBoxStyle}>
-                🎁 Tunggu yaa... ucapan-ucapan spesial baru bisa dibaca setelah<br />
-                <strong>26 Oktober 2025 jam 00:00 WIB 💖</strong>
+                Sabar yaa... ucapan-ucapannya baru bisa dibaca kalo udah<br />
+                <strong>26 Oktober 2025 jam 00:00 WIB</strong>
                 <br /><br />
                 <div style={countdownTimerStyle}>
                   ⏳ {countdown}
